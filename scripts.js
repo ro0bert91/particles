@@ -10,11 +10,32 @@ function domloaded(){
     canvas.height = window.innerHeight;
     var ctx = canvas.getContext("2d");
 
-
-
     ctx.beginPath();
     ctx.fillStyle = "blue";
-    ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height, 10, 0, Math.PI * 2);
-    ctx.fill();
+
+    var particles = [];
+
+    var createObj = function(){
+        var p = {
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: 10
+        };
+
+        particles.push(p);
+    };
+
+    var drawObj = function (){
+        particles.forEach(function (p){
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        });
+
+        ctx.fill();
+
+    };
+
+    createObj();
+    drawObj();
+
 }
 
