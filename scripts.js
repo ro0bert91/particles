@@ -10,7 +10,7 @@ function domloaded(){
     canvas.height = window.innerHeight;
     var ctx = canvas.getContext("2d");
 
-    ctx.beginPath();
+
     ctx.fillStyle = "blue";
 
     var particles = [];
@@ -27,6 +27,7 @@ function domloaded(){
 
     var drawObj = function (){
         particles.forEach(function (p){
+            ctx.beginPath();
             ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         });
 
@@ -34,8 +35,14 @@ function domloaded(){
 
     };
 
-    createObj();
-    drawObj();
+    var loop = function() {
+        createObj();
+        drawObj();
+        window.requestAnimationFrame(loop);
+    };
+
+    loop();
+
 
 }
 
