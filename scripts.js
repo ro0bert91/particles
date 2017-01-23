@@ -25,18 +25,28 @@ function domloaded(){
         particles.push(p);
     };
 
-    var drawObj = function (){
+    var drawObj = function(){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
         particles.forEach(function (p){
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fill();
         });
 
-        ctx.fill();
 
     };
 
+    var moveObj = function () {
+        particles.forEach(function (p) {
+            console.log(1);
+            p.x += 0.1;
+            p.y += 0.1;
+        });
+    };
     var loop = function() {
         createObj();
+        moveObj();
         drawObj();
         window.requestAnimationFrame(loop);
     };
