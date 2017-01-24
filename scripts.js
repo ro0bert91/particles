@@ -32,35 +32,31 @@ function domloaded(){
         particles.push(p);
     };
 
-    var drawObj = function(){
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        particles.forEach(function (p){
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-            ctx.fillStyle = p.color;
-            ctx.fill();
-        });
+    var drawObj = function(p){
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
     };
 
-    var moveObj = function(){
-        particles.forEach(function (p) {
-            p.x += p.xVel;
-            p.y += p.yVel;
-        });
+    var moveObj = function(p){
+        p.x += p.xVel;
+        p.y += p.yVel;
     };
 
-    var shrinkObj = function(){
-        particles.forEach(function (p){
-            p.radius *= 0.99;
-        });
+    var shrinkObj = function(p){
+        p.radius *= 0.99;
     };
 
     var loop = function() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         createObj();
-        moveObj();
-        shrinkObj();
-        drawObj();
+        particles.forEach(function (p){
+            moveObj(p);
+            shrinkObj(p);
+            drawObj(p);
+        });
+
         window.requestAnimationFrame(loop);
     };
 
