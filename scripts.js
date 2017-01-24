@@ -5,22 +5,18 @@ document.addEventListener('DOMContentLoaded',domloaded,false);
 function domloaded(){
 
     var canvas = document.querySelector("#playground");
+    var ctx = canvas.getContext("2d");
     var maxParticles = 500;
+    var particles = [];
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    var ctx = canvas.getContext("2d");
-
-
-    ctx.fillStyle = "blue";
-
-    var particles = [];
 
     var createObj = function(options){
         options = options || {
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height
-            }
+            };
         if (particles.length > maxParticles){
             particles.shift();
         }
@@ -78,7 +74,5 @@ function domloaded(){
     });
 
     loop();
-
-
 }
 
