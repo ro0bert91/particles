@@ -16,14 +16,18 @@ function domloaded(){
 
     var particles = [];
 
-    var createObj = function(){
+    var createObj = function(options){
+        options = options || {
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height
+            }
         if (particles.length > maxParticles){
             particles.shift();
         }
 
         var p = {
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
+            x: options.x,
+            y: options.y,
             xVel: (Math.random() - 0.5) * 10,
             yVel: (Math.random() - 0.5) * 10,
             radius: 15,
@@ -45,7 +49,6 @@ function domloaded(){
 
     var moveObj = function(){
         particles.forEach(function (p) {
-            console.log(1);
             p.x += p.xVel;
             p.y += p.yVel;
         });
@@ -64,6 +67,15 @@ function domloaded(){
         drawObj();
         window.requestAnimationFrame(loop);
     };
+
+    canvas.addEventListener("click", function (ev){
+        for (var i = 0; i < 100; i++){
+            createObj({
+                x: ev.clientX,
+                y: ev.clientY
+            });
+        }
+    });
 
     loop();
 
