@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded',domloaded,false);
 function domloaded(){
 
     var canvas = document.querySelector("#playground");
+    var maxParticles = 500;
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -16,14 +17,17 @@ function domloaded(){
     var particles = [];
 
     var createObj = function(){
+        if (particles.length > maxParticles){
+            particles.shift();
+        }
+
         var p = {
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
             xVel: (Math.random() - 0.5) * 10,
             yVel: (Math.random() - 0.5) * 10,
-            radius: 10
+            radius: 15
         };
-
         particles.push(p);
     };
 
@@ -35,20 +39,26 @@ function domloaded(){
             ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
             ctx.fill();
         });
-
-
     };
 
-    var moveObj = function () {
+    var moveObj = function(){
         particles.forEach(function (p) {
             console.log(1);
             p.x += p.xVel;
             p.y += p.yVel;
         });
     };
+
+    var shrinkObj = function(){
+        particles.forEach(function (p){
+            p.radius *= 0.99;
+        });
+    };
+
     var loop = function() {
         createObj();
         moveObj();
+        shrinkObj();
         drawObj();
         window.requestAnimationFrame(loop);
     };
