@@ -26,7 +26,8 @@ function domloaded(){
             y: Math.random() * canvas.height,
             xVel: (Math.random() - 0.5) * 10,
             yVel: (Math.random() - 0.5) * 10,
-            radius: 15
+            radius: 15,
+            color: '#' + Math.random().toString(16).slice(2, 8).toUpperCase()
         };
         particles.push(p);
     };
@@ -37,6 +38,7 @@ function domloaded(){
         particles.forEach(function (p){
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
             ctx.fill();
         });
     };
