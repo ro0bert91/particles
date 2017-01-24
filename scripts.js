@@ -19,8 +19,8 @@ function domloaded(){
         var p = {
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
-            xVel: Math.random() * 10,
-            yVel: Math.random() * 10,
+            xVel: (Math.random() - 0.5) * 10,
+            yVel: (Math.random() - 0.5) * 10,
             radius: 10
         };
 
